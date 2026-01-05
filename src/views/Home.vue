@@ -1,50 +1,27 @@
 <template>
   <div class="home">
-    <!-- Hero Section -->
+    <!-- Hero Section with Carousel -->
     <section class="hero">
-      <div class="hero-content fade-in-up">
-        <h1>Inclusion Financière pour Tous</h1>
-        <p class="hero-subtitle">Accès aux services financiers pour les populations défavorisées de la RDC</p>
-        <div class="hero-buttons">
-          <router-link to="/services" class="btn btn-primary">Nos Services</router-link>
-          <router-link to="/contact" class="btn btn-secondary">Nous Contacter</router-link>
-        </div>
-      </div>
-      <div class="hero-image">
-        <div class="hero-shape"></div>
-      </div>
-    </section>
-
-    <!-- Carousel Section -->
-    <section class="section carousel-section">
-      <div class="container">
-        <h2 class="section-title">Nos Galeries</h2>
-        <div class="carousel-container">
-          <button class="carousel-btn prev" @click="prevSlide" title="Précédent">
-            ❮
-          </button>
-          
-          <div class="carousel-wrapper">
-            <div class="carousel-slides">
-              <div 
-                v-for="(slide, index) in carouselSlides" 
-                :key="index"
-                class="carousel-slide"
-                :class="{ active: index === currentSlideIndex }"
-              >
-                <img :src="slide.image" :alt="slide.title" class="slide-image">
-                <div class="slide-content">
-                  <h3>{{ slide.title }}</h3>
-                  <p>{{ slide.description }}</p>
-                </div>
-              </div>
-            </div>
+      <div class="hero-carousel-wrapper">
+        <div class="carousel-slides">
+          <div 
+            v-for="(slide, index) in carouselSlides" 
+            :key="index"
+            class="carousel-slide"
+            :class="{ active: index === currentSlideIndex }"
+          >
+            <img :src="slide.image" :alt="slide.title" class="slide-image">
           </div>
-
-          <button class="carousel-btn next" @click="nextSlide" title="Suivant">
-            ❯
-          </button>
         </div>
+        
+        <div class="carousel-overlay"></div>
+
+        <button class="carousel-btn prev" @click="prevSlide" title="Précédent">
+          ❮
+        </button>
+        <button class="carousel-btn next" @click="nextSlide" title="Suivant">
+          ❯
+        </button>
 
         <!-- Carousel Indicators -->
         <div class="carousel-indicators">
@@ -56,6 +33,15 @@
             @click="goToSlide(index)"
             :title="'Aller au slide ' + (index + 1)"
           ></button>
+        </div>
+      </div>
+
+      <div class="hero-content fade-in-up">
+        <h1>Inclusion Financière pour Tous</h1>
+        <p class="hero-subtitle">Accès aux services financiers pour les populations défavorisées de la RDC</p>
+        <div class="hero-buttons">
+          <router-link to="/services" class="btn btn-primary">Nos Services</router-link>
+          <router-link to="/contact" class="btn btn-secondary">Nous Contacter</router-link>
         </div>
       </div>
     </section>
@@ -265,52 +251,171 @@ onUnmounted(() => {
 
 /* Hero Section */
 .hero {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: var(--spacing-3xl);
-  padding: var(--spacing-4xl) 0;
-  background: linear-gradient(135deg, rgba(0, 121, 107, 0.05) 0%, rgba(0, 121, 107, 0.1) 100%);
+  padding: var(--spacing-4xl) var(--spacing-md);
+  min-height: 100vh;
   position: relative;
   overflow: hidden;
+}
+
+.hero-carousel-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 800px;
 }
 
 .hero-content h1 {
   font-size: var(--text-5xl);
   line-height: var(--line-height-tight);
-  color: var(--primary);
+  color: white;
   margin-bottom: var(--spacing-lg);
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
 .hero-subtitle {
-  font-size: var(--text-lg);
-  color: var(--text-light);
-  margin-bottom: var(--spacing-xl);
+  font-size: var(--text-xl);
+  color: rgba(255, 255, 255, 0.95);
+  margin-bottom: var(--spacing-2xl);
   line-height: var(--line-height-relaxed);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
 .hero-buttons {
   display: flex;
   gap: var(--spacing-lg);
   flex-wrap: wrap;
-}
-
-.hero-image {
-  position: relative;
-  height: 400px;
-  display: flex;
-  align-items: center;
   justify-content: center;
 }
 
-.hero-shape {
+/* Carousel Styles in Hero */
+.hero-carousel-wrapper {
+  display: flex;
+  align-items: center;
+  position: absolute;
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-  border-radius: var(--radius-xl);
-  position: relative;
-  box-shadow: 0 20px 60px rgba(0, 121, 107, 0.3);
-  animation: float 3s ease-in-out infinite;
+}
+
+.carousel-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(0, 121, 107, 0.4) 0%, rgba(0, 0, 0, 0.6) 100%);
+  z-index: 1;
+}
+
+.carousel-slides {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.carousel-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity var(--transition-slow);
+}
+
+.carousel-slide.active {
+  opacity: 1;
+  z-index: 1;
+}
+
+.slide-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.carousel-btn {
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px solid white;
+  color: white;
+  font-size: var(--text-2xl);
+  width: 50px;
+  height: 50px;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-base);
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 5;
+  font-weight: var(--font-bold);
+}
+
+.carousel-btn.prev {
+  left: var(--spacing-xl);
+}
+
+.carousel-btn.next {
+  right: var(--spacing-xl);
+}
+
+.carousel-btn:hover {
+  background: rgba(255, 255, 255, 0.4);
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* Carousel Indicators */
+.carousel-indicators {
+  position: absolute;
+  bottom: var(--spacing-2xl);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-md);
+  z-index: 5;
+  flex-wrap: wrap;
+}
+
+.indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.4);
+  border: 2px solid white;
+  cursor: pointer;
+  transition: all var(--transition-base);
+}
+
+.indicator.active {
+  background: white;
+  width: 24px;
+  border-radius: var(--radius-md);
+}
+
+.indicator:hover {
+  background: rgba(255, 255, 255, 0.7);
+  transform: scale(1.2);
 }
 
 /* Carousel Section */
@@ -669,33 +774,31 @@ onUnmounted(() => {
 
 @media (max-width: 768px) {
   .hero {
-    grid-template-columns: 1fr;
-    padding: var(--spacing-2xl) 0;
-    gap: var(--spacing-2xl);
+    padding: var(--spacing-2xl);
+    min-height: auto;
+    padding-top: 200px;
+  }
+
+  .hero-content {
+    width: 100%;
   }
 
   .hero-content h1 {
-    font-size: var(--text-4xl);
+    font-size: var(--text-3xl);
   }
 
   .hero-subtitle {
-    font-size: var(--text-lg);
+    font-size: var(--text-base);
   }
 
   .hero-buttons {
     flex-direction: column;
+    gap: var(--spacing-md);
   }
 
-  .hero-shape {
-    height: 300px;
-  }
-
-  .carousel-wrapper {
-    height: 300px;
-  }
-
-  .carousel-container {
-    gap: var(--spacing-sm);
+  .btn {
+    width: 100%;
+    text-align: center;
   }
 
   .carousel-btn {
@@ -704,16 +807,39 @@ onUnmounted(() => {
     font-size: var(--text-lg);
   }
 
-  .slide-content {
+  .carousel-btn.prev {
+    left: var(--spacing-md);
+  }
+
+  .carousel-btn.next {
+    right: var(--spacing-md);
+  }
+
+  .carousel-indicators {
+    bottom: var(--spacing-lg);
+    gap: var(--spacing-sm);
+  }
+
+  .indicator {
+    width: 10px;
+    height: 10px;
+  }
+
+  .indicator.active {
+    width: 20px;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-md);
+  }
+
+  .stat-card {
     padding: var(--spacing-lg);
   }
 
-  .slide-content h3 {
-    font-size: var(--text-lg);
-  }
-
-  .slide-content p {
-    font-size: var(--text-sm);
+  .stat-number {
+    font-size: var(--text-2xl);
   }
 
   .about-grid {

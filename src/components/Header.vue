@@ -8,16 +8,6 @@
           </router-link>
         </div>
 
-        <button 
-          class="mobile-toggle"
-          @click="toggleMenu"
-          :class="{ active: isMenuOpen }"
-        >
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
-
         <ul class="nav-menu" :class="{ active: isMenuOpen }">
           <li>
             <router-link to="/" @click="closeMenu">
@@ -51,16 +41,38 @@
           </li>
         </ul>
 
-        <button 
-          class="theme-toggle"
-          @click="toggleDarkMode"
-          :title="isDarkMode ? 'Mode clair' : 'Mode sombre'"
-        >
-          <span v-if="isDarkMode" class="toggle-icon">☀️</span>
-          <span v-else class="toggle-icon">🌙</span>
-        </button>
+        <div class="nav-actions">
+          <button 
+            class="theme-toggle"
+            @click="toggleDarkMode"
+            :title="isDarkMode ? 'Mode clair' : 'Mode sombre'"
+          >
+            <span v-if="isDarkMode" class="toggle-icon">☀️</span>
+            <span v-else class="toggle-icon">🌙</span>
+          </button>
+
+          <button 
+            class="mobile-toggle"
+            @click="toggleMenu"
+            :class="{ active: isMenuOpen }"
+            :aria-label="isMenuOpen ? 'Fermer le menu' : 'Ouvrir le menu'"
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
       </div>
     </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <transition name="menu-fade">
+      <div 
+        v-if="isMenuOpen"
+        class="menu-overlay"
+        @click="closeMenu"
+      ></div>
+    </transition>
   </header>
 </template>
 
@@ -214,14 +226,41 @@ onMounted(() => {
   display: block;
 }
 
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: calc(var(--z-fixed) - 1);
+}
+
+/* Transitions */
+.menu-fade-enter-active,
+.menu-fade-leave-active {
+  transition: opacity var(--transition-base);
+}
+
+.menu-fade-enter-from,
+.menu-fade-leave-to {
+  opacity: 0;
+}
+
 @media (max-width: 768px) {
   .mobile-toggle {
     display: flex;
   }
 
   .nav-menu {
-    position: absolute;
-    top: 100%;
+    position: fixed;
+    top: var(--z-fixed);
     left: 0;
     right: 0;
     flex-direction: column;
@@ -230,10 +269,13 @@ onMounted(() => {
     max-height: 0;
     overflow: hidden;
     transition: max-height var(--transition-base);
+    z-index: var(--z-fixed);
+    box-shadow: var(--shadow-lg);
   }
 
   .nav-menu.active {
-    max-height: 300px;
+    max-height: calc(100vh - 60px);
+    overflow-y: auto;
   }
 
   .nav-menu li {
@@ -244,10 +286,16 @@ onMounted(() => {
   .nav-menu li a {
     padding: var(--spacing-lg);
     width: 100%;
+    border-radius: 0;
+    font-size: var(--text-lg);
   }
 
   .nav-menu li:last-child {
     border-bottom: none;
+  }
+
+  .nav-actions {
+    z-index: var(--z-fixed);
   }
 }
 </style>
