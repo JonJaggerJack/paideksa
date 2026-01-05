@@ -1,0 +1,105 @@
+/* ============================== */
+/* VARIABLES CSS - PAIDEKSA      */
+/* ============================== */
+
+:root {
+  /* Couleurs principales */
+  --primary: #00796b;
+  --primary-light: #004d40;
+  --primary-lighter: #80cbc4;
+  --primary-dark: #00695c;
+  
+  /* Couleurs secondaires */
+  --secondary: #ff6f00;
+  --secondary-light: #ffb74d;
+  --secondary-dark: #e65100;
+  
+  /* Couleurs d'état */
+  --success: #2e7d32;
+  --warning: #f57c00;
+  --error: #c62828;
+  --info: #0277bd;
+  
+  /* Couleurs de texte */
+  --text-dark: #212121;
+  --text-light: #757575;
+  --text-lighter: #bdbdbd;
+  --text-inverse: #ffffff;
+  
+  /* Couleurs de fond */
+  --bg-white: #ffffff;
+  --bg-light: #fafafa;
+  --bg-lighter: #f5f5f5;
+  --bg-dark: #263238;
+  
+  /* Couleurs de border */
+  --border-color: #e0e0e0;
+  --border-light: #f0f0f0;
+  
+  /* Espacements */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-2xl: 48px;
+  --spacing-3xl: 64px;
+  --spacing-4xl: 80px;
+  
+  /* Taailles de police */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
+  --text-5xl: 3rem;
+  --text-6xl: 3.75rem;
+  
+  /* Hauteurs de ligne */
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.6;
+  --line-height-relaxed: 1.8;
+  
+  /* Poids de police */
+  --font-light: 300;
+  --font-normal: 400;
+  --font-medium: 500;
+  --font-semibold: 600;
+  --font-bold: 700;
+  
+  /* Ombre */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 15px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.15);
+  --shadow-xl: 0 20px 60px rgba(0, 0, 0, 0.2);
+  
+  /* Rayon de border */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
+  
+  /* Transitions */
+  --transition-fast: 0.15s ease;
+  --transition-base: 0.3s ease;
+  --transition-slow: 0.5s ease;
+  
+  /* Z-index */
+  --z-dropdown: 100;
+  --z-sticky: 500;
+  --z-fixed: 1000;
+  --z-modal: 1050;
+  
+  /* Max-width container */
+  --container-max: 1200px;
+  
+  /* Responsive breakpoints */
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+}
