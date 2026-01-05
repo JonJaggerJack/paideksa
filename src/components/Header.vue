@@ -35,20 +35,40 @@
             </router-link>
           </li>
           <li>
+            <router-link to="/actualites" @click="closeMenu">
+              Actualités
+            </router-link>
+          </li>
+          <li>
+            <router-link to="/ressources" @click="closeMenu">
+              Ressources
+            </router-link>
+          </li>
+          <li>
             <router-link to="/contact" @click="closeMenu">
               Contact
             </router-link>
           </li>
         </ul>
+
+        <button 
+          class="theme-toggle"
+          @click="toggleDarkMode"
+          :title="isDarkMode ? 'Mode clair' : 'Mode sombre'"
+        >
+          <span v-if="isDarkMode" class="toggle-icon">☀️</span>
+          <span v-else class="toggle-icon">🌙</span>
+        </button>
       </div>
     </nav>
   </header>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 
 const isMenuOpen = ref(false)
+const isDarkMode = ref(false)
 
 const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value
@@ -57,6 +77,29 @@ const toggleMenu = () => {
 const closeMenu = () => {
   isMenuOpen.value = false
 }
+
+const toggleDarkMode = () => {
+  isDarkMode.value = !isDarkMode.value
+  
+  if (isDarkMode.value) {
+    document.documentElement.classList.add('dark-mode')
+    localStorage.setItem('theme', 'dark')
+  } else {
+    document.documentElement.classList.remove('dark-mode')
+    localStorage.setItem('theme', 'light')
+  }
+}
+
+onMounted(() => {
+  // Récupère la préférence sauvegardée ou utilise la préférence système
+  const savedTheme = localStorage.getItem('theme')
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+  
+  if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+    isDarkMode.value = true
+    document.documentElement.classList.add('dark-mode')
+  }
+})
 </script>
 
 <style scoped>
@@ -145,6 +188,30 @@ const closeMenu = () => {
 
 .mobile-toggle.active span:nth-child(3) {
   transform: rotate(-45deg) translate(8px, -8px);
+}
+
+.theme-toggle {
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-radius: var(--radius-full);
+  padding: var(--spacing-sm) var(--spacing-md);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: var(--spacing-md);
+}
+
+.theme-toggle:hover {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: white;
+  transform: scale(1.1);
+}
+
+.toggle-icon {
+  font-size: 1.2rem;
+  display: block;
 }
 
 @media (max-width: 768px) {

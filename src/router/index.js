@@ -3,12 +3,16 @@ import Home from '../views/Home.vue'
 import Mission from '../views/Mission.vue'
 import Services from '../views/Services.vue'
 import Contact from '../views/Contact.vue'
+import News from '../views/News.vue'
+import Resources from '../views/Resources.vue'
 
 const routes = [
   { path: '/', component: Home },
   { path: '/mission', component: Mission },
   { path: '/services', component: Services },
-  { path: '/contact', component: Contact }
+  { path: '/contact', component: Contact },
+  { path: '/actualites', component: News },
+  { path: '/ressources', component: Resources }
 ]
 
 const router = createRouter({

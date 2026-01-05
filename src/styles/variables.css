@@ -103,3 +103,45 @@
   --breakpoint-lg: 1024px;
   --breakpoint-xl: 1280px;
 }
+
+/* Dark Mode */
+:root.dark-mode {
+  /* Couleurs principales - inchangées */
+  --primary: #00796b;
+  --primary-light: #004d40;
+  --primary-lighter: #80cbc4;
+  --primary-dark: #00695c;
+  
+  /* Couleurs secondaires */
+  --secondary: #ff6f00;
+  --secondary-light: #ffb74d;
+  --secondary-dark: #e65100;
+  
+  /* Couleurs d'état */
+  --success: #4caf50;
+  --warning: #ff9800;
+  --error: #f44336;
+  --info: #2196f3;
+  
+  /* Couleurs de texte - inversées pour dark mode */
+  --text-dark: #e0e0e0;
+  --text-light: #bdbdbd;
+  --text-lighter: #757575;
+  --text-inverse: #1e1e1e;
+  
+  /* Couleurs de fond - dark mode */
+  --bg-white: #1e1e1e;
+  --bg-light: #2d2d2d;
+  --bg-lighter: #3a3a3a;
+  --bg-dark: #0d0d0d;
+  
+  /* Couleurs de border */
+  --border-color: #404040;
+  --border-light: #2a2a2a;
+  
+  /* Ombres adaptées au dark mode */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 15px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.5);
+  --shadow-xl: 0 20px 60px rgba(0, 0, 0, 0.6);
+}
